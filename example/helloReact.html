@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>hello react</title>
+	<!-- 核心库 -->
+	<script src="../build/react.js"></script>
+	<!-- 提供dom相关的操作 -->
+	<script src="../build/react-dom.js"></script>
+	<!-- 将JSX语法转为JavaScript语法 -->
+	<script src="../build/browser.min.js"></script>	
+
+	
+</head>
+<body>
+	<div id="container"></div>
+</body>
+</html>
+<script type="text/jsx">
+	React.render(
+    <h1>Hello, world!</h1>,
+    document.getElementById('example')
+  );
+</script>
