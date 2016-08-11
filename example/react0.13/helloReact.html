@@ -24,7 +24,11 @@ var MessageBox = React.createClass({
 });
 React.render(    
     <MessageBox/>,
-    document.getElementById("container")
+    document.getElementById("container"),
+    /*此处想当然回调函数callback一样，个人理解，错误希望指正*/
+    function(){
+        console.log("渲染完成~~~")
+    }
 )
 
 
