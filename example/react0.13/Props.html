@@ -13,6 +13,23 @@
 <script src="../../bower_components/react_v0.13/JSXTransformer.js"></script>      
 <script type="text/jsx">
 var MessageBox = React.createClass({
+    getInitialState : function(){
+        return {
+            subMessages: [
+            '师傅有五个徒弟，分为大师兄徒弟（武力值最高），和其他徒弟俩类。',
+            '大师兄：二师弟，厨房木有米了，你负责下山去买米。只见大师兄拿出笔和纸，写了一大页满的。考虑到师傅10年后回来的概率（20%），与各位师兄弟的饭量，刚刚好200万。买200万斤吧！，多一斤也不要，我就要这个最小数据量，不包含其他算法处理，不要因为价格，带的钱不够，就买少了，就要实实在在的这么多，带上神兽麒麟，驼回来,考虑到200年之后没米吃，对，就这么干。还有你不要有反应元件，我知道你比较冲动，不能用为老板给的价格不合理，你就砍了他，咱门派的人不乱杀人，摊上事了，别冲动，好好解决。跟他谈个好几年的价格也是可以的。',
+           '二师弟：( ⊙ o ⊙ )啊！！！，师兄高瞻远就，我这就去办。（尼玛，考虑最小可能性也没必要这么干吧，200年啊！！！，还最小数据量，尼玛怎么算得啊！拉格朗日一下就出来了？）',
+            '大师兄：三师妹，你就负责服侍大师兄我吧！来，先捶捶腿。',
+            '三师妹：~~~~(>_<)~~~~ ',
+            '大师兄：四师弟，马桶堵了，你去掏马桶。',
+            '四师弟：哦！（逼了狗了~，还不如买米去。）',
+            '大师兄：五师弟，念你年纪小，上山去砍柴，多锻炼才能长得结实。',
+            '五师弟：.....（默默背上柴刀走了）',
+            '故事就是这样，这个故事告诉我们，要么做大师兄，要么回家种田。。。。',
+            
+            ]
+        }
+    },
     /*定义的点击事件*/
     msgAlert:function(){
         alert("点我作甚！！！");
@@ -23,8 +40,33 @@ var MessageBox = React.createClass({
             <div>
                 <h1>Props:</h1>            
                 <a onClick={this.msgAlert}>点点我！！</a> 
-            </div>
+                <hr/>
+                <SubMessage messages={this.state.subMessages}/>
+            </div>            
         )
+    }
+});
+var SubMessage = React.createClass({
+    getDefaultProps : function(){
+        return {
+            messages : "默认的消息"
+        }
+    },
+    render:function () {
+        var arr = [];
+        /*this.props.messages.map(function(msg,index){
+            arr.push(
+                <p>{msg}</p>
+            )            
+        });
+*/
+        this.props.messages.forEach(function(msg , index){
+            arr.push(
+              <p>{msg}</p>  
+            )
+        });
+
+        return <div>{arr}</div>;
     }
 });
 React.render(    
