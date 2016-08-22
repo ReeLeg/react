@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>学习React! ~ PropType校验</title>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script src="../../bower_components/react_v0.13/react.min.js"></script>
+<script src="../../bower_components/react_v0.13/JSXTransformer.js"></script>      
+<script type="text/jsx">
+var MyPropTypes = React.createClass({
+    propTypes:{
+        value:React.PropTypes.string.isRequired
+        /*
+        React.PropTypes.any.isRequired
+        React.PropTypes.array.isRequired
+        React.PropTypes.bool.isRequired
+        React.PropTypes.element.isRequired
+        React.PropTypes.func.isRequired
+        React.PropTypes.node.isRequired
+        React.PropTypes.number.isRequired
+        React.PropTypes.object.isRequired
+        React.PropTypes.string.isRequired
+        */
+    },
+    render:function(){
+        return (<div>{this.props.value}</div>)
+    }
+});
+React.render(
+    <MyPropTypes value={"上岛咖啡..."}/>,
+    document.getElementById("container")
+);
+</script>
