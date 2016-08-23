@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>学习React! ~ React 点击事件</title>
+</head>
+
+<body>
+    <h3>
+        <p>getInitialState 定义初始化状态 , 可以通过this.state  读取改属性</p>
+        <p>如果一个组件导致状态改变 ， this.setState 方法就修改状态值 ， 每次修改后会自动调用render方法 ， 再次渲染组件</p>
+    </h3>
+    <div id="container"></div>
+</body>
+</html>
+<script src="../../bower_components/react_v0.13/react.min.js"></script>
+<script src="../../bower_components/react_v0.13/JSXTransformer.js"></script>      
+<script type="text/jsx">
+var MessageBox = React.createClass({
+    //定义初始化状态
+    getInitialState:function(){
+        return {
+            isVisible:true             
+        }
+    },
+    clickVisible: function(){
+        //修改状态
+        this.setState({
+            isVisible:!(this.state.isVisible)
+        })
+    },
+    /*render 必不可少*/
+    render:function(){
+        return (
+            <div>
+                <input type="button" onClick={this.clickVisible} value="Click Me !" />       
+                <SubMessage isVisible={this.state.isVisible}/>      
+            </div>            
+        )
+    }
+});
+var SubMessage = React.createClass({        
+    render:function () { 
+        var styVisible = {
+            display : this.props.isVisible?'block':'none'
+        }
+        return (
+            <div style={styVisible}>
+                <p>你看不见我！你看不见我！你看不见我。。。</p>
+            </div>
+        );
+    }
+});
+React.render(    
+    <MessageBox/>,
+    document.getElementById("container")
+)
+</script>
