@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>学习React! ~ Refs 获取真实的节点</title>
+</head>
+
+<body>
+    <h3>
+        <p>this.refs.[refName] 属性获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错</p>
+    </h3>
+    <hr />
+    <div id="container"></div>
+</body>
+</html>
+<script src="../../bower_components/react_v0.13/react.min.js"></script>
+<script src="../../bower_components/react_v0.13/JSXTransformer.js"></script>      
+<script type="text/jsx">
+var MessageBox = React.createClass({
+    //定义初始化状态
+    getInitialState:function(){
+        return {
+            count:0             
+        }
+    },
+    handleClick: function(){        
+        //修改状态
+        this.setState({
+            count:(++this.state.count)
+        });
+        var val = ("一共点击了："+ this.state.count+"次");        
+        this.refs.myTextInput.getDOMNode().value = val;        
+        this.refs.myTextInput.getDOMNode().focus();
+    },
+    /*render 必不可少*/
+    render:function(){
+        return (
+            <div>
+                <input type="text" ref="myTextInput" />
+                <input type="button" onClick={this.handleClick} value="Click Me !" />       
+                <p>一共点击了：{this.state.count}次</p>   
+            </div>            
+        )
+    }
+});
+
+React.render(    
+    <MessageBox/>,
+    document.getElementById("container")
+)
+</script>
