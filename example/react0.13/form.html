@@ -1,0 +1,182 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>学习React! ~ Form</title>
+    <style type="text/css">
+    html,body{
+        font-size: .8rem;
+    }
+    #container{
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 2rem;
+    }
+    #container .item{
+        margin-top: 1rem;
+    }
+    #container .item .title , #container .item .elemPanel {
+        float: left;
+        line-height: 18px;
+    }
+    #container .item .elemPanel label{
+        margin-right: 3rem;
+        position: relative;
+        top: -3px;
+    }
+    #container .item .elemPanel input[type="radio"],#container .item .elemPanel input[type="checkbox"]{
+        margin-right: 2px;
+        position: relative;
+        top: 3px;
+    }
+    #container .item .description{
+        width: 200px;
+        height: 120px;
+    }
+    input[type='text'],select{
+        width: 200px;
+        height: 26px;
+        line-height: 26px;
+    }
+    .clearfix:after {
+      content: " ";
+      display: block;
+      clear: both;
+      height: 0;
+    }
+
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>    
+</body>
+</html>
+<script src="../../bower_components/react_v0.13/react.min.js"></script>
+<script src="../../bower_components/react_v0.13/JSXTransformer.js"></script>      
+<script type="text/jsx">
+var FormApp = React.createClass({
+    getInitialState:function(){
+        return {
+            inputValue:'please input value...',
+            radioValue:'A',
+        }
+    },
+    render:function(){
+        return (
+            <form action="#">
+                <div className="item">
+                    <label>姓名：</label>
+                    <input type="text" defaultValue={this.state.inputValue} />
+                </div>
+                <div className="item clearfix">
+                    <label className="title">性别：</label>
+                    <div className="elemPanel" >
+                        <Radios name="province" listItems={["Jiangsu","Zhejiang","Shanghai"]} selectedValue="Zhejiang" />
+                    </div>                    
+                </div>
+                <div className="item">
+                    <label>年龄：</label>
+                    <input type="text" />
+                </div>                
+                <div className="item">
+                    <label>学历：</label>
+                    <select>
+                        <option value="小学">小学</option>
+                        <option value="初中">初中</option>
+                        <option value="高中">高中</option>
+                        <option value="大学">大学</option>
+                        <option value="硕士">硕士</option>
+                        <option value="博士">博士</option>
+                        <option value="研究生">研究生</option>
+                        <option value="博士后">博士后</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <div className="item clearfix">
+                    <label className="title">爱好：</label>
+                    <Checkboxs />
+                </div>
+                <div className="item">
+                    <label className="title">简介：</label>
+                    <textarea className="description"></textarea>
+                </div>
+                <div className="item">
+                    <input type="button" value="submit" />
+                </div>             
+            </form>        
+        )
+    }
+});
+var RadioButton = React.createClass({
+    render:function(){
+        return (
+            <label htmlFor={this.props.id}>
+                <input type="radio" 
+                id={this.props.id} 
+                name={this.props.name}                
+                value={this.props.value} 
+                checked={this.props.checked}
+                onChange={this.handleChange} />                
+                {this.props.text}
+            </label>            
+        )
+    },
+    handleChange:function(e){
+        if(this.props.onHandleChange && typeof(this.props.onHandleChange) == "function"){
+            this.props.onHandleChange(e);
+        }                
+    }
+});
+
+var Radios = React.createClass({
+    render:function(){
+        return (
+            <div>
+               {this.renderRadioButtons()}
+            </div>
+        )
+    },
+    renderRadioButtons:function(){
+        return this.props.listItems.map(function(item , index){
+            return (
+                <RadioButton id={this.props.name + '_' + index} 
+                name={this.props.name} 
+                value={item.value || item} 
+                text={item.text || item} 
+                checked={this.state.selectedValue == (item.value || item)}
+                onHandleChange={this.handleChange} />
+            );
+        }.bind(this));
+        /*bind 在这里主要指定this的作用域来之哪里*/
+    },
+    getInitialState:function(){
+        return {
+            selectedValue : this.props.selectedValue
+        }
+    },
+    handleChange:function(e){
+        console.log(e.target.value);
+        this.setState({
+            selectedValue : e.target.value
+        });
+    }
+});
+var Checkboxs = React.createClass({
+    render:function(){
+        return (
+            <div className="elemPanel">
+                <label for="shoping"><input type="checkbox" value="购物" id="shoping" />购物</label>
+                <label for="game"><input type="checkbox" value="游戏" id="game" />游戏</label>
+                <label for="motion"><input type="checkbox" value="运动" id="motion" />运动</label>
+                <label for="other"><input type="checkbox" value="其他" id="other" />其他</label>
+            </div>
+        )
+    }
+});
+
+React.render(    
+    <FormApp/>,
+    document.getElementById("container")
+)
+</script>
